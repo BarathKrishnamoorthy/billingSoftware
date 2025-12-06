@@ -253,14 +253,12 @@ const generateEmployeeId = async (req, res) => {
   }
 };
 
-const generateCustomId = async (dateOfJoining) => {
-  const parsedDate = new Date(dateOfJoining);
-  const yy = parsedDate.getFullYear().toString().slice(2);
-  const mm = String(parsedDate.getMonth() + 1).padStart(2, "0");
-  const dd = String(parsedDate.getDate()).padStart(2, "0");
+const generateCustomId = async () => {
   const countEmployee = await User.countDocuments();
-  return `HOTEL${yy}${mm}${dd}${countEmployee + 1}`;
+  const increment = String(countEmployee + 1).padStart(3, "0");
+  return `HOTEL${increment}`;
 };
+
 
 export {
   loginHotel,

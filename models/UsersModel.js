@@ -22,8 +22,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
     },
     role: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Roles"
+      type: String, default: "user"
     },
     dateOfJoining: { 
       type: Date 
