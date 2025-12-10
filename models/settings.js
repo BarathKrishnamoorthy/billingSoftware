@@ -17,6 +17,15 @@ const settingsSchema = new mongoose.Schema(
     address:{
       type:String
     },
+    city:{
+      type:String
+    },
+    state:{
+      type:String
+    },
+    pincode:{
+      type:String
+    },
     discount:{
       type:String
     },

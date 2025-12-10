@@ -8,6 +8,9 @@ const createSetting = async (req, res) => {
       gst,
       gstPercentage,
       address,
+      city,
+      state,
+      pincode,
       discount,
     } = req.body;
 
@@ -24,7 +27,9 @@ const createSetting = async (req, res) => {
       settings.gstPercentage = gstPercentage || settings.gstPercentage;
       settings.address = address || settings.address;
       settings.discount = discount || settings.discount;
-
+      settings.city = city || settings.city;
+      settings.state = state || settings.state;
+      settings.pincode = pincode || settings.pincode;
       await settings.save();
 
       return res.status(200).json({
@@ -39,7 +44,10 @@ const createSetting = async (req, res) => {
         gst,
         gstPercentage,
         address,
-        discount
+        discount,
+        city,
+        state,
+        pincode
       });
 
       await settings.save();
