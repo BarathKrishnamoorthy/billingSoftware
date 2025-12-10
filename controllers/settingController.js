@@ -7,7 +7,8 @@ const createSetting = async (req, res) => {
       companyName,
       gst,
       gstPercentage,
-      category,
+      address,
+      discount,
     } = req.body;
 
     console.log("Incoming data:", req.body);
@@ -21,7 +22,8 @@ const createSetting = async (req, res) => {
       settings.companyName = companyName || settings.companyName;
       settings.gst = gst || settings.gst;
       settings.gstPercentage = gstPercentage || settings.gstPercentage;
-      settings.category = category || settings.category;
+      settings.address = address || settings.address;
+      settings.discount = discount || settings.discount;
 
       await settings.save();
 
@@ -36,7 +38,8 @@ const createSetting = async (req, res) => {
         companyName,
         gst,
         gstPercentage,
-        category,
+        address,
+        discount
       });
 
       await settings.save();

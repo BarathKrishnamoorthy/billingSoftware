@@ -14,6 +14,12 @@ const settingsSchema = new mongoose.Schema(
     gstPercentage:{
       type:String
     },
+    address:{
+      type:String
+    },
+    discount:{
+      type:String
+    },
     
   },
   {
