@@ -14,13 +14,15 @@ const createSetting = async (req, res) => {
       discount,
     } = req.body;
 
+    if (req.file && req.file.fieldname === "logo") {
+      req.body.logo = req.file.path;
+    }
+    
     console.log("Incoming data:", req.body);
-
 
     let settings = await Settings.findOne({ hotelId });
 
     if (settings) {
-
       settings.hotelId = hotelId || settings.hotelId;
       settings.companyName = companyName || settings.companyName;
       settings.gst = gst || settings.gst;
@@ -30,6 +32,11 @@ const createSetting = async (req, res) => {
       settings.city = city || settings.city;
       settings.state = state || settings.state;
       settings.pincode = pincode || settings.pincode;
+      
+      if (req.body.logo) {
+        settings.logo = req.body.logo;
+      }
+
       await settings.save();
 
       return res.status(200).json({
@@ -37,7 +44,6 @@ const createSetting = async (req, res) => {
         settings,
       });
     } else {
-
       settings = new Settings({
         hotelId,
         companyName,
@@ -47,8 +53,12 @@ const createSetting = async (req, res) => {
         discount,
         city,
         state,
-        pincode
+        pincode,
       });
+
+      if (req.body.logo) {
+        settings.logo = req.body.logo;
+      }
 
       await settings.save();
 
@@ -72,6 +82,7 @@ const createSetting = async (req, res) => {
     }
   }
 };
+
 
 
 

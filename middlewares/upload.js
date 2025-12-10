@@ -72,32 +72,23 @@ const ensureDirExists = (dirPath) => {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let destPath;
-    console.log("file.fieldname", file.fieldname);
-    console.log("hhhhhh", file.fieldname);
-    if (file.fieldname === "photo") {
-      destPath = path.join(__dirname, "../uploads");
-    }
-    // else if (file.fieldname === 'files'){
-    //   console.log("download 123");
-    //   destPath =path.join(__dirname,'../uploads/documents');
-    // }
-    else if (
-      /^document\[\d+\]\[files\]\[\d+\]\[selectedfile\]$/.test(file.fieldname)
-    ) {
-      console.log("Matched file upload field");
-      destPath = path.join(__dirname, "../uploads/documents");
+    
+    // Ensure the hotel-specific folder exists
+    if (file.fieldname === 'logo') {
+      destPath = path.join(__dirname, `../uploads/logos/${req.body.hotelId}`);
     } else {
       destPath = path.join(__dirname, "../uploads/others");
     }
+
     ensureDirExists(destPath);
     cb(null, destPath);
   },
   filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() + "-" + file.originalname.replace(/\s+/g, "_");
+    const uniqueName = Date.now() + "-" + file.originalname.replace(/\s+/g, "_");
     cb(null, uniqueName);
   },
 });
+
 // Multer instance
 const upload = multer({
   storage,
