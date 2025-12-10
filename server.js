@@ -15,7 +15,8 @@ import categoryRouter from "./routes/categoryRouter.js";
 import userRouter from "./routes/userRoutes.js";
 import roleRouter from "./routes/roleRouter.js";
 import settingRouter from "./routes/settingRouter.js";
-
+import menuRouter from "./routes/menuRouter.js";
+import expenseRouter from "./routes/expenseRouter.js";
 
 
 dotenv.config();
@@ -47,7 +48,8 @@ const startApp = async () => {
 
   app.use("/api/setting", settingRouter);
   app.use("/api/role", roleRouter);
-
+  app.use("/api/menu", menuRouter);
+  app.use("/api/expense", expenseRouter);
   // Base route
   app.get('/api', (req, res) => res.send('API is running...'));
   const PORT = process.env.PORT || 5000;

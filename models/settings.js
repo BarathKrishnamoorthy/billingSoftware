@@ -14,13 +14,6 @@ const settingsSchema = new mongoose.Schema(
     gstPercentage:{
       type:String
     },
-    category:[{
-      menu:{
-        type:String
-      }
-    }],
-
-
     
   },
   {

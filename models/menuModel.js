@@ -1,12 +1,21 @@
 import mongoose from "mongoose";
-const categorySchema = new mongoose.Schema(
+const menuSchema = new mongoose.Schema(
   {
     hotelId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     },
+
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category"
+    },
    
     name: {
+      type: String,
+    },
+
+    price:{
       type: String,
     },
   
@@ -18,5 +27,5 @@ const categorySchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const Category = mongoose.model("category", categorySchema);
-export default Category;
+const Menu = mongoose.model("menu", menuSchema);
+export default Menu;

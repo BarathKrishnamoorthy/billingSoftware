@@ -13,7 +13,7 @@ const createSetting = async (req, res) => {
     console.log("Incoming data:", req.body);
 
 
-    let settings = await Settings.findOne();
+    let settings = await Settings.findOne({ hotelId });
 
     if (settings) {
 
