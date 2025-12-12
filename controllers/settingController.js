@@ -1,3 +1,4 @@
+import { log } from "console";
 import Settings from "../models/settings.js";
 
 const createSetting = async (req, res) => {
@@ -40,6 +41,7 @@ const createSetting = async (req, res) => {
       await settings.save();
 
       return res.status(200).json({
+        success: true,
         message: "Settings updated successfully",
         settings,
       });
@@ -88,9 +90,14 @@ const createSetting = async (req, res) => {
 
 const getSettingDetails = async (req, res) => {
   const {id} = req.params;
+
+  console.log("id :", id);
+  
   try {
     const settingDetails = await Settings.find({hotelId:id});
-    res.status(200).json({ success: true, data: settingDetails });
+    const setting = settingDetails[0];
+    
+    res.status(200).json({ success: true, data: setting });
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
