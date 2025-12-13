@@ -5,6 +5,9 @@ const settingsSchema = new mongoose.Schema(
       type:mongoose.Schema.Types.ObjectId,
       ref:"User"
     },
+    logo:{
+      type:String
+    },
     companyName:{
       type:String
     },
@@ -15,6 +18,15 @@ const settingsSchema = new mongoose.Schema(
       type:String
     },
     address:{
+      type:String
+    },
+    city:{
+      type:String
+    },
+    state:{
+      type:String
+    },
+    pincode:{
       type:String
     },
     discount:{

@@ -1,3 +1,4 @@
+import { log } from "console";
 import Settings from "../models/settings.js";
 
 const createSetting = async (req, res) => {
@@ -8,39 +9,58 @@ const createSetting = async (req, res) => {
       gst,
       gstPercentage,
       address,
+      city,
+      state,
+      pincode,
       discount,
     } = req.body;
 
+    if (req.file && req.file.fieldname === "logo") {
+      req.body.logo = req.file.path;
+    }
+    
     console.log("Incoming data:", req.body);
-
 
     let settings = await Settings.findOne({ hotelId });
 
     if (settings) {
-
       settings.hotelId = hotelId || settings.hotelId;
       settings.companyName = companyName || settings.companyName;
       settings.gst = gst || settings.gst;
       settings.gstPercentage = gstPercentage || settings.gstPercentage;
       settings.address = address || settings.address;
       settings.discount = discount || settings.discount;
+      settings.city = city || settings.city;
+      settings.state = state || settings.state;
+      settings.pincode = pincode || settings.pincode;
+      
+      if (req.body.logo) {
+        settings.logo = req.body.logo;
+      }
 
       await settings.save();
 
       return res.status(200).json({
+        success: true,
         message: "Settings updated successfully",
         settings,
       });
     } else {
-
       settings = new Settings({
         hotelId,
         companyName,
         gst,
         gstPercentage,
         address,
-        discount
+        discount,
+        city,
+        state,
+        pincode,
       });
+
+      if (req.body.logo) {
+        settings.logo = req.body.logo;
+      }
 
       await settings.save();
 
@@ -67,11 +87,17 @@ const createSetting = async (req, res) => {
 
 
 
+
 const getSettingDetails = async (req, res) => {
   const {id} = req.params;
+
+  console.log("id :", id);
+  
   try {
     const settingDetails = await Settings.find({hotelId:id});
-    res.status(200).json({ success: true, data: settingDetails });
+    const setting = settingDetails[0];
+    
+    res.status(200).json({ success: true, data: setting });
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
