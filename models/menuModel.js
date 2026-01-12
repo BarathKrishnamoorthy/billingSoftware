@@ -3,22 +3,26 @@ const menuSchema = new mongoose.Schema(
   {
     hotelId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
 
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "category"
+      type: String,
+      ref: "category",
     },
-   
+
     name: {
       type: String,
     },
 
-    price:{
+    itemImage: {
       type: String,
     },
-  
+
+    price: {
+      type: String,
+    },
+
     status: {
       type: String,
     },

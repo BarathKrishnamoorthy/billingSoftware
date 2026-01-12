@@ -18,9 +18,7 @@ import settingRouter from "./routes/settingRouter.js";
 import menuRouter from "./routes/menuRouter.js";
 import expenseRouter from "./routes/expenseRouter.js";
 
-
 dotenv.config();
-
 
 const app = express();
 app.use(morgan("dev"));
@@ -32,7 +30,6 @@ app.use(
   })
 );
 
-
 app.use(express.json());
 app.use(cookieParser());
 
@@ -42,7 +39,9 @@ const startApp = async () => {
   // autoEmailSendJob();
   // autoLogoutJob();
   // Ensure uploads directory exists
-  app.use("/api/uploads", express.static(path.join(__dirname, "uploads")));
+  // app.use("/api/uploads", express.static(path.join(__dirname, "uploads")));
+  app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
   app.use("/api/category", categoryRouter);
   app.use("/api/user", userRouter);
 
@@ -51,11 +50,9 @@ const startApp = async () => {
   app.use("/api/menu", menuRouter);
   app.use("/api/expense", expenseRouter);
   // Base route
-  app.get('/api', (req, res) => res.send('API is running...'));
+  app.get("/api", (req, res) => res.send("API is running..."));
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 };
 
-startApp(); 
-
-
+startApp();
