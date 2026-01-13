@@ -107,7 +107,7 @@ const getMenuByCategory = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const MenuDetails = await Menu.find({ category: id });
+    const MenuDetails = await Menu.find({ category: id, status: "true" });
     const updatedMenuDetails = MenuDetails.map((menu) => {
       if (menu.itemImage) {
         menu.itemImage = `uploads/others/${menu.itemImage}`;
